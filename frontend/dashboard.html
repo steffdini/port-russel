@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tableau de bord</title>
+</head>
+<body>
+  <h2>Bienvenue, <span id="username">Capitaine</span></h2>
+  <p>Email : <span id="email">contact@port.fr</span></p>
+  <p>Date du jour : <span id="date"></span></p>
+
+  <nav>
+    <a href="catways.html">Gérer les catways</a> |
+    <a href="reservations.html">Gérer les réservations</a> |
+    <a href="users.html">Gérer les utilisateurs</a> |
+    <a href="index.html">Déconnexion</a> |
+    <a href="/docs">Documentation API</a>
+  </nav>
+
+  <h3>Réservations en cours</h3>
+  <div id="reservations-table"></div>
+
+  <script>
+    document.getElementById('date').textContent = new Date().toLocaleDateString()
+    // Appel à l'API avec fetch ici si tu veux remplir dynamiquement
+  </script>
+</body>
+</html>

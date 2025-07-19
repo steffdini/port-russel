@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test API Port Russell</title>
+</head>
+<body>
+    <h3>Utilisateurs</h3>
+<table id="userTable" border="1">
+  <thead>
+    <tr><th>Nom</th><th>Email</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>Réservations</h3>
+<table id="reservationTable" border="1">
+  <thead>
+    <tr><th>Client</th><th>Emplacement</th><th>Date</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+  <h2>Connexion utilisateur</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" value="stefano@example.com" required />
+    <input type="password" id="password" placeholder="Mot de passe" value="motdepasse123" required />
+    <button type="submit">Se connecter</button>
+  </form>
+
+
+  <h2>Utilisateurs protégés</h2>
+  <button id="getUsers">Voir les utilisateurs</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    // Connexion et stockage du token
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault()
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+        .then(res => res.json())
+        .then(data => {
+          localStorage.setItem('token', data.token)
+          document.getElementById('output').textContent = '✅ Connexion réussie ! Token enregistré.'
+        })
+        .catch(() => document.getElementById('output').textContent = '❌ Erreur de connexion.')
+    })
+
+    // Appel de la route /users avec le token
+    document.getElementById('getUsers').addEventListener('click', function () {
+      const token = localStorage.getItem('token')
+      fetch('http://localhost:3000/users', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+        .then(res => res.json())
+        .then(data => document.getElementById('output').textContent = JSON.stringify(data, null, 2))
+        .catch(() => document.getElementById('output').textContent = '❌ Accès refusé.')
+    })
+  </script>
+</body>
+</html>

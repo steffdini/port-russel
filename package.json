@@ -1,0 +1,33 @@
+{
+    "name": "port-russell-api",
+    "version": "1.0.0",
+    "description": "API pour le Port de Plaisance Russell — gestion des catways, réservations et utilisateurs",
+    "main": "backend/server.js",
+    "scripts": {
+        "start": "node backend/server.js",
+        "dev": "nodemon backend/server.js",
+        "seed:catways": "node backend/seed/importCatways.js",
+        "seed:reservations": "node backend/seed/importReservations.js",
+        "seed:all": "npm run seed:catways && npm run seed:reservations"
+    },
+    "keywords": [
+        "express",
+        "mongo",
+        "port",
+        "api",
+        "reservations"
+    ],
+    "author": "Stefano",
+    "license": "MIT",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.1.4",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^7.5.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10"
+    }
+}
